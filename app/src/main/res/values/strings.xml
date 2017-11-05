@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Motion Challenge</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_in_screen">SignInScreen</string>
 </resources>
