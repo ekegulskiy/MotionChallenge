@@ -1,6 +1,7 @@
 package com.example.ek.motionchallenge;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -20,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class HomeScreen extends AppCompatActivity
-        implements GoogleApiClient.OnConnectionFailedListener {
+        implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final String TAG = "HomeScreen";
     public static final String GUEST = "Guest";
     private String mUsername;
@@ -31,21 +35,66 @@ public class HomeScreen extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
+    // Views
+    private ImageView mShakeMotionIconView;
+    private ImageView mSwing360MotionIconView;
+    private ImageView mJumpUpMotionIconView;
+    private ImageView mSpeedTapMotionIconView;
+    private TextView mMotionDescView;
+
+    @Override // Implement the OnClickListener callback
+    public void onClick(View v) {
+        mShakeMotionIconView.clearColorFilter();
+        mSwing360MotionIconView.clearColorFilter();
+        mJumpUpMotionIconView.clearColorFilter();
+        mSpeedTapMotionIconView.clearColorFilter();
+
+        ImageView imageView = (ImageView)v;
+        imageView.setColorFilter(0xFF33b5E5, PorterDuff.Mode.SCREEN);
+
+        switch(v.getId()){
+            case R.id.shakeMotionIconView:
+                mMotionDescView.setText(R.string.home_screen_shake_motion_desc);
+                break;
+
+            case R.id.swing360MotionIconView:
+                mMotionDescView.setText(R.string.home_screen_swing360_motion_desc);
+                break;
+
+            case R.id.jumpUpMotionIconView:
+                mMotionDescView.setText(R.string.home_screen_jumpup_motion_desc);
+                break;
+
+            case R.id.speedTapMotionIconView:
+                mMotionDescView.setText(R.string.home_screen_speedtap_motion_desc);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void initViews(){
+        mShakeMotionIconView = findViewById(R.id.shakeMotionIconView);
+        mSwing360MotionIconView = findViewById(R.id.swing360MotionIconView);
+        mJumpUpMotionIconView = findViewById(R.id.jumpUpMotionIconView);
+        mSpeedTapMotionIconView = findViewById(R.id.speedTapMotionIconView);
+
+        mShakeMotionIconView.setOnClickListener(this);
+        mSwing360MotionIconView.setOnClickListener(this);
+        mJumpUpMotionIconView.setOnClickListener(this);
+        mSpeedTapMotionIconView.setOnClickListener(this);
+
+        mMotionDescView = findViewById(R.id.motionDescView);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Motion Challenge is starting...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         // Set default username is anonymous.
         mUsername = GUEST;
@@ -67,6 +116,8 @@ public class HomeScreen extends AppCompatActivity
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
+
+        initViews();
     }
 
     @Override
