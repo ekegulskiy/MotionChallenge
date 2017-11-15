@@ -8,4 +8,75 @@
     tools:context="com.example.ek.motionchallenge.ui.MotionScreen"
     tools:showIn="@layout/activity_motion_screen">
 
+    <TextView
+        android:id="@+id/MotionScreen_descView"
+        android:layout_width="280dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="54dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textAlignment="gravity" />
+
+    <Button
+        android:id="@+id/MotionScreen_StartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="48dp"
+        android:text="Start!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MotionScreen_descView" />
+
+    <TextView
+        android:id="@+id/MotoinScreen_lastScoreView"
+        android:layout_width="167dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginLeft="97dp"
+        android:layout_marginTop="49dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MotionScreen_StartBtn" />
+
+    <TextView
+        android:id="@+id/MotionScreen_feedbackView"
+        android:layout_width="296dp"
+        android:layout_height="101dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="34dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Excellent job!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MotoinScreen_lastScoreView" />
+
+    <ProgressBar
+        android:id="@+id/MotionScreen_motionProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="136dp"
+        android:layout_height="95dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="48dp"
+        android:max="15"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MotionScreen_descView" />
+
 </android.support.constraint.ConstraintLayout>

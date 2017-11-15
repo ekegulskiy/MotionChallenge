@@ -1,3 +1,19 @@
+/**
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.ek.motionchallenge.ui;
 
 import android.content.Intent;
@@ -10,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +42,7 @@ public class HomeScreen extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final String TAG = "HomeScreen";
     public static final String GUEST = "Guest";
+    private int mSelectedMotionIconID;
     private String mUsername;
 
     private GoogleApiClient mGoogleApiClient;
@@ -39,37 +57,51 @@ public class HomeScreen extends AppCompatActivity
     private ImageView mJumpUpMotionIconView;
     private ImageView mSpeedTapMotionIconView;
     private TextView mMotionDescView;
+    private Button mStartBtn;
 
     @Override // Implement the OnClickListener callback
     public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.shakeMotionIconView:
+                activateMotionIcon(v, R.string.home_screen_shake_motion_desc);
+                break;
+
+            case R.id.swing360MotionIconView:
+                activateMotionIcon(v, R.string.home_screen_swing360_motion_desc);
+                break;
+
+            case R.id.jumpUpMotionIconView:
+                activateMotionIcon(v, R.string.home_screen_jumpup_motion_desc);
+                break;
+
+            case R.id.speedTapMotionIconView:
+                activateMotionIcon(v, R.string.home_screen_speedtap_motion_desc);
+                break;
+
+            case R.id.startMotionBtn:
+                Intent motionScreenIntent = new Intent(this, MotionScreen.class);
+                motionScreenIntent.putExtra("motionID", mSelectedMotionIconID);
+                startActivity(motionScreenIntent);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /** Activates the icon for the selected motion and display the text in the Motion
+     * description view
+     * */
+    private void activateMotionIcon(View motionIcon, int motionDescStrID){
         mShakeMotionIconView.clearColorFilter();
         mSwing360MotionIconView.clearColorFilter();
         mJumpUpMotionIconView.clearColorFilter();
         mSpeedTapMotionIconView.clearColorFilter();
 
-        ImageView imageView = (ImageView)v;
-        imageView.setColorFilter(0xFF33b5E5, PorterDuff.Mode.SCREEN);
+        ImageView iconToActivate = (ImageView)motionIcon;
 
-        switch(v.getId()){
-            case R.id.shakeMotionIconView:
-                mMotionDescView.setText(R.string.home_screen_shake_motion_desc);
-                break;
-
-            case R.id.swing360MotionIconView:
-                mMotionDescView.setText(R.string.home_screen_swing360_motion_desc);
-                break;
-
-            case R.id.jumpUpMotionIconView:
-                mMotionDescView.setText(R.string.home_screen_jumpup_motion_desc);
-                break;
-
-            case R.id.speedTapMotionIconView:
-                mMotionDescView.setText(R.string.home_screen_speedtap_motion_desc);
-                break;
-
-            default:
-                break;
-        }
+        mSelectedMotionIconID = motionIcon.getId();
+        mMotionDescView.setText(motionDescStrID);
+        iconToActivate.setColorFilter(0xFF33b5E5, PorterDuff.Mode.SCREEN);
     }
 
     private void initViews(){
@@ -84,6 +116,9 @@ public class HomeScreen extends AppCompatActivity
         mSpeedTapMotionIconView.setOnClickListener(this);
 
         mMotionDescView = findViewById(R.id.motionDescView);
+
+        mStartBtn = findViewById(R.id.startMotionBtn);
+        mStartBtn.setOnClickListener(this);
     }
 
     @Override
