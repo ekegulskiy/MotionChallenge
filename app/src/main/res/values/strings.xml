@@ -8,4 +8,5 @@
     <string name="home_screen_speedtap_motion_desc"><b>SPEED TAP</b>\nTap the screen with one finger as fast as you can for 5 seconds.</string>
     <string name="title_activity_motion_screen">MotionScreen</string>
     <string name="motion_screen_last_score"><b>Last Score: </b></string>
+    <string name="motion_screen_feedback">Excellent job!</string>
 </resources>

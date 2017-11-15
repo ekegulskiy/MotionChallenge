@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
+// uses sound from   http://www.downloadfreesound.com/8-bit-sound-effects/
+
+
 package com.example.ek.motionchallenge.ui;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +40,8 @@ public class MotionScreen extends AppCompatActivity {
     private ProgressBar mMotionProgressBar;
     private MotionBase mMotion;
     private TextView mLastScoreView;
+    private MediaPlayer mMediaPlayer;
+    private TextView mFeedbackView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,8 @@ public class MotionScreen extends AppCompatActivity {
         mStartBtn = findViewById(R.id.MotionScreen_StartBtn);
         mMotionProgressBar = findViewById(R.id.MotionScreen_motionProgressBar);
         mLastScoreView = findViewById(R.id.MotoinScreen_lastScoreView);
+        mFeedbackView = findViewById(R.id.MotionScreen_feedbackView);
+        mFeedbackView.setText("");
 
         CharSequence curText = getString(R.string.motion_screen_last_score);
         mLastScoreView.setText(curText);
@@ -79,9 +87,10 @@ public class MotionScreen extends AppCompatActivity {
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMediaPlayer.start();
+
                 mMotionProgressBar.setVisibility(View.VISIBLE);
                 mStartBtn.setVisibility(View.INVISIBLE);
-
 
                 mMotion.start();
             }
@@ -92,14 +101,20 @@ public class MotionScreen extends AppCompatActivity {
         mMotion.setMotionEventListener(new MotionBase.MotionEventListener() {
             @Override
             public void onMotionEnd() {
+                mMediaPlayer.start();
                 mMotionProgressBar.setVisibility(View.INVISIBLE);
                 mStartBtn.setVisibility(View.VISIBLE);
 
                 CharSequence curText = getString(R.string.motion_screen_last_score);
                 curText = curText + Integer.toString(mMotion.getMotionCount());
                 mLastScoreView.setText(curText);
+                mFeedbackView.setText(R.string.motion_screen_feedback);
             }
         });
+
+        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep1);
+
+        mMotionProgressBar.getIndeterminateDrawable().setColorFilter(0xFF33b5E5, android.graphics.PorterDuff.Mode.MULTIPLY);
 
     }
 }

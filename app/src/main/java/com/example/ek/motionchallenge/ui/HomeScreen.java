@@ -102,6 +102,8 @@ public class HomeScreen extends AppCompatActivity
         mSelectedMotionIconID = motionIcon.getId();
         mMotionDescView.setText(motionDescStrID);
         iconToActivate.setColorFilter(0xFF33b5E5, PorterDuff.Mode.SCREEN);
+
+        mStartBtn.setEnabled(true);
     }
 
     private void initViews(){
@@ -119,6 +121,7 @@ public class HomeScreen extends AppCompatActivity
 
         mStartBtn = findViewById(R.id.startMotionBtn);
         mStartBtn.setOnClickListener(this);
+        mStartBtn.setEnabled(false);
     }
 
     @Override
