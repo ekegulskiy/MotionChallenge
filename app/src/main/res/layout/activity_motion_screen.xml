@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ek.motionchallenge.ui.HomeScreen">
+    tools:context="com.example.ek.motionchallenge.ui.MotionScreen">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,8 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_home_screen" />
+    <include layout="@layout/content_motion_screen" />
 
 </android.support.design.widget.CoordinatorLayout>

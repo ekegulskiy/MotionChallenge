@@ -6,4 +6,5 @@
     <string name="home_screen_swing360_motion_desc"><b>360 SWING</b>\nMake full circle with your hand for 15 seconds, while holding the phone in your hand. Your arm has to be straight.</string>
     <string name="home_screen_jumpup_motion_desc"><b>JUMP UP</b>\nJump 3 times as high as you can while holding the phone in your hand</string>
     <string name="home_screen_speedtap_motion_desc"><b>SPEED TAP</b>\nTap the screen with one finger as fast as you can for 15 seconds.</string>
+    <string name="title_activity_motion_screen">MotionScreen</string>
 </resources>
