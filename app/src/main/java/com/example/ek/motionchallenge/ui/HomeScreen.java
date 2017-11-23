@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -44,6 +45,7 @@ public class HomeScreen extends AppCompatActivity
     public static final String GUEST = "Guest";
     private int mSelectedMotionIconID;
     private String mUsername;
+    private FirebaseScoresDB mScoresDB;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -154,6 +156,8 @@ public class HomeScreen extends AppCompatActivity
                 .build();
 
         initViews();
+        mScoresDB = FirebaseScoresDB.getInstance();
+        mScoresDB.setUserLoginInfo(mUser.getUid(),mUser.getDisplayName());
     }
 
     @Override

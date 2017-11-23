@@ -15,7 +15,8 @@ public class ShakeMotion extends MotionBase
         implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private final String TAG="SensorMotion";
+    private final String TAG="ShakeMotion";
+    private final String NAME="shake";
     private final float SHAKE_MOTION_MIN_ACCELERATION = 2.0f;
     private final int SHAKE_MOTION_DURATION_SEC = 5;
     private ShakeDirection mDirection;
@@ -55,6 +56,11 @@ public class ShakeMotion extends MotionBase
     public void onMotionEnd()
     {
         Pause();
+    }
+
+    @Override
+    public String getMotionName(){
+        return NAME;
     }
 
     @Override

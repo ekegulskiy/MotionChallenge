@@ -21,15 +21,14 @@ package com.example.ek.motionchallenge.ui;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
 import com.example.ek.motionchallenge.model.MotionBase;
 import com.example.ek.motionchallenge.model.ShakeMotion;
@@ -42,6 +41,7 @@ public class MotionScreen extends AppCompatActivity {
     private TextView mLastScoreView;
     private MediaPlayer mMediaPlayer;
     private TextView mFeedbackView;
+    private FirebaseScoresDB mScoresDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +60,8 @@ public class MotionScreen extends AppCompatActivity {
         mFeedbackView = findViewById(R.id.MotionScreen_feedbackView);
         mFeedbackView.setText("");
 
-        CharSequence curText = getString(R.string.motion_screen_last_score);
-        mLastScoreView.setText(curText);
+
+        mScoresDB = FirebaseScoresDB.getInstance();
 
         switch(motionID){
             case R.id.shakeMotionIconView:
@@ -109,12 +109,16 @@ public class MotionScreen extends AppCompatActivity {
                 curText = curText + Integer.toString(mMotion.getMotionCount());
                 mLastScoreView.setText(curText);
                 mFeedbackView.setText(R.string.motion_screen_feedback);
+
+                mScoresDB.updateMotionScore(mMotion.getMotionName(), mMotion.getMotionCount());
             }
         });
 
+        CharSequence curText = getString(R.string.motion_screen_last_score);
+        curText = curText + Integer.toString(mScoresDB.getMotionLastScore(mMotion.getMotionName()));
+        mLastScoreView.setText(curText);
+
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep1);
-
         mMotionProgressBar.getIndeterminateDrawable().setColorFilter(0xFF33b5E5, android.graphics.PorterDuff.Mode.MULTIPLY);
-
     }
 }

@@ -36,6 +36,7 @@ public abstract class MotionBase {
     }
 
     public abstract void onMotionEnd();
+    public abstract String getMotionName();
 
     public void incrementMotionCount(){
         mMotionCount++;
