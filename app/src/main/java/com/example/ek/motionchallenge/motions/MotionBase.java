@@ -1,8 +1,7 @@
-package com.example.ek.motionchallenge.model;
+package com.example.ek.motionchallenge.motions;
 
 import android.content.Context;
 import android.os.Handler;
-import android.view.View;
 
 /**
  * Created by ek on 11/15/17.

@@ -1,4 +1,4 @@
-package com.example.ek.motionchallenge.model;
+package com.example.ek.motionchallenge.motions;
 
 import android.content.Context;
 import android.hardware.Sensor;

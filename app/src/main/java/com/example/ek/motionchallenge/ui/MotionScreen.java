@@ -30,8 +30,8 @@ import android.widget.TextView;
 
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
-import com.example.ek.motionchallenge.model.MotionBase;
-import com.example.ek.motionchallenge.model.ShakeMotion;
+import com.example.ek.motionchallenge.motions.MotionBase;
+import com.example.ek.motionchallenge.motions.ShakeMotion;
 
 public class MotionScreen extends AppCompatActivity {
     private TextView mMotionDescView;
