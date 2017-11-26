@@ -27,8 +27,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.MotionScreen"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_motion_screen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.MyScoresScreen"
+            android:label="@string/title_activity_my_scores_screen"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

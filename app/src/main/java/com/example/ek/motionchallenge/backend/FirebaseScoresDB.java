@@ -19,14 +19,20 @@ public class FirebaseScoresDB {
     private final String DB_KEY_MOTIONS = "motions";
     private final String DB_KEY_USER_NAME = "name";
     private final String DB_KEY_USERS = "users";
+    private final String DB_KEY_SCORE_STATS = "score_stats";
     private final String DB_KEY_LAST_SCORE = "lastScore";
     private final String DB_KEY_BEST_SCORE = "bestScore";
+    private final String DB_KEY_MIN_SCORE = "minScore";
+    private final String DB_KEY_MAX_SCORE = "maxScore";
 
     private String mUserName;
     private String mUserUUID;
     private DatabaseReference mFirebaseDB;
     private HashMap<String, Integer> mLastScores = new HashMap<String, Integer>();
     private HashMap<String, Integer> mBestScores = new HashMap<String, Integer>();
+
+    private HashMap<String, Integer> mOverallMaxScores = new HashMap<String, Integer>();
+    private HashMap<String, Integer> mOverallMinScores = new HashMap<String, Integer>();
 
     private static FirebaseScoresDB mSingleton;
 
@@ -41,14 +47,43 @@ public class FirebaseScoresDB {
         return mSingleton;
     }
 
-    private void setupListeners(){
-        mFirebaseDB.child(DB_KEY_USERS).child(mUserUUID).child(DB_KEY_MOTIONS).addChildEventListener(new ChildEventListener() {
+    private void setupListeners() {
+        mFirebaseDB.child(DB_KEY_SCORE_STATS).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d(TAG, "onChildAdded");
 
                 String key = dataSnapshot.getKey(); // motion name
-                HashMap<String, Long> scores = (HashMap<String, Long>)dataSnapshot.getValue();
+                HashMap<String, Long> scores = (HashMap<String, Long>) dataSnapshot.getValue();
+
+                mOverallMaxScores.put(key, scores.get(DB_KEY_MAX_SCORE).intValue());
+                mOverallMinScores.put(key, scores.get(DB_KEY_MIN_SCORE).intValue());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "onChildChanged");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        mFirebaseDB.child(DB_KEY_USERS).child(mUserUUID).child(DB_KEY_MOTIONS).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                String key = dataSnapshot.getKey(); // motion name
+                HashMap<String, Long> scores = (HashMap<String, Long>) dataSnapshot.getValue();
 
                 mLastScores.put(key, scores.get(DB_KEY_LAST_SCORE).intValue());
                 mBestScores.put(key, scores.get(DB_KEY_BEST_SCORE).intValue());
@@ -105,5 +140,13 @@ public class FirebaseScoresDB {
 
     public int getMotionBestScore(String motionName){
         return mBestScores.get(motionName);
+    }
+
+    public int getOverallMaxScore(String motionName){
+        return mOverallMaxScores.get(motionName);
+    }
+
+    public int getOverallMinScore(String motionName){
+        return mOverallMinScores.get(motionName);
     }
 }

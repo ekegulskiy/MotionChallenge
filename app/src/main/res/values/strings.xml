@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Motion Challenge</string>
     <string name="menu_sign_out">Sign Out</string>
+    <string name="menu_my_scores">My Scores</string>
     <string name="title_activity_sign_in_screen">SignInScreen</string>
     <string name="home_screen_shake_motion_desc"><b>SHAKE</b>\nShake the phone in your hand as fast as you can for 5 seconds</string>
     <string name="home_screen_swing360_motion_desc"><b>360 SWING</b>\nMake full circle with your hand for 5 seconds, while holding the phone in your hand. Your arm has to be straight.</string>
@@ -9,4 +10,5 @@
     <string name="title_activity_motion_screen">MotionScreen</string>
     <string name="motion_screen_last_score"><b>Last Score: </b></string>
     <string name="motion_screen_feedback">Excellent job!</string>
+    <string name="title_activity_my_scores_screen">My Scores</string>
 </resources>

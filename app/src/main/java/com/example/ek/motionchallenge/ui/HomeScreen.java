@@ -181,6 +181,9 @@ public class HomeScreen extends AppCompatActivity
             mUsername = GUEST;
             startActivity(new Intent(this, SignInScreen.class));
             return true;
+        }else if(id == R.id.menu_my_scores) {
+            Intent myScoresScreenIntent = new Intent(this, MyScoresScreen.class);
+            startActivity(myScoresScreenIntent);
         }
 
         return super.onOptionsItemSelected(item);
