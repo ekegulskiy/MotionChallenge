@@ -175,7 +175,11 @@ public class HomeScreen extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_sign_out) {
+            mAuth.signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            mUsername = GUEST;
+            startActivity(new Intent(this, SignInScreen.class));
             return true;
         }
 
