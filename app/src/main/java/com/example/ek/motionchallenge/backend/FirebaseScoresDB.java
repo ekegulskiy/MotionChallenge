@@ -135,7 +135,17 @@ public class FirebaseScoresDB {
     }
 
     public int getMotionLastScore(String motionName){
-        return mLastScores.get(motionName);
+        int ret = 0;
+        try
+        {
+            ret = mLastScores.get(motionName);
+        }
+        catch (NullPointerException e)
+        {
+            Log.d(TAG, "last score does not exist yet");
+        }
+
+        return ret;
     }
 
     public int getMotionBestScore(String motionName){
