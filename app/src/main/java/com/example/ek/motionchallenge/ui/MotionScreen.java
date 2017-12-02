@@ -32,6 +32,7 @@ import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
 import com.example.ek.motionchallenge.motions.MotionBase;
 import com.example.ek.motionchallenge.motions.ShakeMotion;
+import com.example.ek.motionchallenge.motions.Swing360Motion;
 
 public class MotionScreen extends AppCompatActivity {
     private TextView mMotionDescView;
@@ -66,10 +67,12 @@ public class MotionScreen extends AppCompatActivity {
         switch(motionID){
             case R.id.shakeMotionIconView:
                 mMotionDescView.setText(R.string.home_screen_shake_motion_desc);
+                mMotion = new ShakeMotion(this);
                 break;
 
             case R.id.swing360MotionIconView:
                 mMotionDescView.setText(R.string.home_screen_swing360_motion_desc);
+                mMotion = new Swing360Motion(this);
                 break;
 
             case R.id.jumpUpMotionIconView:
@@ -96,8 +99,6 @@ public class MotionScreen extends AppCompatActivity {
             }
         });
 
-        // TODO: hardcoded ShakeMotion for now
-        mMotion = new ShakeMotion(this);
         mMotion.setMotionEventListener(new MotionBase.MotionEventListener() {
             @Override
             public void onMotionEnd() {
