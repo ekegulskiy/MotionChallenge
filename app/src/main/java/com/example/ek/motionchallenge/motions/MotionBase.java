@@ -47,6 +47,10 @@ public abstract class MotionBase {
         return mMotionCount;
     }
 
+    public void setMotionScore(int score){
+        mMotionCount = score;
+    }
+
     public void start(){
         onMotionStart(); // notify derived class
 

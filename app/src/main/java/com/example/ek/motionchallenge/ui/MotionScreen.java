@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
+import com.example.ek.motionchallenge.motions.JumpUpMotion;
 import com.example.ek.motionchallenge.motions.MotionBase;
 import com.example.ek.motionchallenge.motions.ShakeMotion;
 import com.example.ek.motionchallenge.motions.Swing360Motion;
@@ -77,6 +78,7 @@ public class MotionScreen extends AppCompatActivity {
 
             case R.id.jumpUpMotionIconView:
                 mMotionDescView.setText(R.string.home_screen_jumpup_motion_desc);
+                mMotion = new JumpUpMotion(this);
                 break;
 
             case R.id.speedTapMotionIconView:
