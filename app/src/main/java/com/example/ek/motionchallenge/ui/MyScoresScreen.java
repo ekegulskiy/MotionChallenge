@@ -25,13 +25,13 @@ public class MyScoresScreen extends AppCompatActivity {
                 motionName = "shake";
                 break;
             case R.id.swing360MotionScore:
-                motionName = "";
+                motionName = "360swing";
                 break;
             case R.id.jumpUpMotionIconScore:
-                motionName = "";
+                motionName = "jumpUp";
                 break;
             case R.id.speedTapMotionScore:
-                motionName = "";
+                motionName = "speedTap";
                 break;
             default:
                 assert false;
