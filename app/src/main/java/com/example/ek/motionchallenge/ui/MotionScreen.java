@@ -100,7 +100,11 @@ public class MotionScreen extends AppCompatActivity {
         });
 
         mMotion.setMotionEventListener(new MotionBase.MotionEventListener() {
-            @Override
+
+            public void onMotionStart(){
+
+            }
+
             public void onMotionEnd() {
                 mMediaPlayer.start();
                 mMotionProgressBar.setVisibility(View.INVISIBLE);

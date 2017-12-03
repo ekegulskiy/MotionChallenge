@@ -41,7 +41,6 @@ public class ShakeMotion extends MotionBase
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 
-        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void Resume(){
@@ -52,10 +51,13 @@ public class ShakeMotion extends MotionBase
         mSensorManager.unregisterListener(this);
     }
 
-    @Override
     public void onMotionEnd()
     {
         Pause();
+    }
+
+    public void onMotionStart(){
+        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override

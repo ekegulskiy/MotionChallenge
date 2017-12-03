@@ -17,7 +17,7 @@ public abstract class MotionBase {
     protected void setMotionDuration(int motionDurationSec){
         mMotionDuration = motionDurationSec;
     }
-    public int getmMotionDuration(){
+    public int getMotionDuration(){
         return mMotionDuration;
     }
 
@@ -28,6 +28,7 @@ public abstract class MotionBase {
 
     public interface MotionEventListener {
         public void onMotionEnd();
+        public void onMotionStart();
     }
 
     public void setMotionEventListener(MotionEventListener listener) {
@@ -35,6 +36,7 @@ public abstract class MotionBase {
     }
 
     public abstract void onMotionEnd();
+    public abstract void onMotionStart();
     public abstract String getMotionName();
 
     public void incrementMotionCount(){
@@ -46,15 +48,23 @@ public abstract class MotionBase {
     }
 
     public void start(){
+        onMotionStart(); // notify derived class
+
+        if(mEventListener != null)
+            mEventListener.onMotionStart(); // notify listeners
+
         mMotionCount = 0; // reset
         Handler handler = new Handler();
         Runnable runnable = new Runnable(){
             public void run() {
+
+                onMotionEnd(); // notify derived class
+
                 if(mEventListener != null)
-                    mEventListener.onMotionEnd();
+                    mEventListener.onMotionEnd(); // notify listeners
             }
         };
-        handler.postDelayed(runnable, getmMotionDuration()*1000);
+        handler.postDelayed(runnable, getMotionDuration()*1000);
     }
 
     public void cancel(){

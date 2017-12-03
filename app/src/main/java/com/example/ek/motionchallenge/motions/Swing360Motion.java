@@ -19,8 +19,8 @@ public class Swing360Motion extends MotionBase
     private Sensor mAccelerometer;
     private final String TAG="Swing360Motion";
     private final String NAME="360swing";
-    private final float SHAKE_MOTION_MIN_ACCELERATION = 2.0f;
-    private final int SHAKE_MOTION_DURATION_SEC = 5;
+    private final float SHAKE_MOTION_MIN_ACCELERATION = 1.0f;
+    private final int MOTION_DURATION_SEC = 5;
 
     private int mAxisDirectionChanged;
 
@@ -30,7 +30,7 @@ public class Swing360Motion extends MotionBase
 
     public Swing360Motion(Context context){
         super(context);
-        setMotionDuration(SHAKE_MOTION_DURATION_SEC);
+        setMotionDuration(MOTION_DURATION_SEC);
         initSensors();
         mAxisDirectionChanged = 0;
 
@@ -42,8 +42,6 @@ public class Swing360Motion extends MotionBase
     protected void initSensors(){
         mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void Resume(){
@@ -52,6 +50,11 @@ public class Swing360Motion extends MotionBase
 
     public void Pause(){
         mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onMotionStart(){
+        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -75,11 +78,11 @@ public class Swing360Motion extends MotionBase
             float curAcceleration_Y = event.values[1];
             float curAcceleration_Z = event.values[2];
 
-            if(curAcceleration_X > Math.abs(SHAKE_MOTION_MIN_ACCELERATION))
+            if(Math.abs(curAcceleration_X) > SHAKE_MOTION_MIN_ACCELERATION)
                 mXMotionAcceleration.update(curAcceleration_X);
-            if(curAcceleration_Y > Math.abs(SHAKE_MOTION_MIN_ACCELERATION))
+            if(Math.abs(curAcceleration_Y) > SHAKE_MOTION_MIN_ACCELERATION)
                 mYMotionAcceleration.update(curAcceleration_Y);
-            if(curAcceleration_Z > Math.abs(SHAKE_MOTION_MIN_ACCELERATION))
+            if(Math.abs(curAcceleration_Z) > SHAKE_MOTION_MIN_ACCELERATION)
                 mZMotionAcceleration.update(curAcceleration_Z);
 
             if(mXMotionAcceleration.numOfDirChanged() > 2)
@@ -91,7 +94,7 @@ public class Swing360Motion extends MotionBase
             if(mZMotionAcceleration.numOfDirChanged() > 2)
                 mAxisDirectionChanged = mAxisDirectionChanged | MotionAcceleration.Z_AXIS_MASK;
 
-            if(MotionAcceleration.numOfAxisDirectionChange(mAxisDirectionChanged) > 2) // at least 2
+            if(MotionAcceleration.numOfAxisDirectionChange(mAxisDirectionChanged) >= 2) // at least 2
             {
                 incrementMotionCount();
                 mXMotionAcceleration.reset();

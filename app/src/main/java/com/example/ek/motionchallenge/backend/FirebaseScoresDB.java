@@ -85,8 +85,13 @@ public class FirebaseScoresDB {
                 String key = dataSnapshot.getKey(); // motion name
                 HashMap<String, Long> scores = (HashMap<String, Long>) dataSnapshot.getValue();
 
-                mLastScores.put(key, scores.get(DB_KEY_LAST_SCORE).intValue());
-                mBestScores.put(key, scores.get(DB_KEY_BEST_SCORE).intValue());
+                try {
+                    mLastScores.put(key, scores.get(DB_KEY_LAST_SCORE).intValue());
+                    mBestScores.put(key, scores.get(DB_KEY_BEST_SCORE).intValue());
+                }
+                catch(NullPointerException e){
+                    Log.d(TAG, "best score does not exist yet for " + key);
+                }
             }
 
             @Override
