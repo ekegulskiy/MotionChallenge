@@ -25,7 +25,7 @@ public class TextProgressBar extends ProgressBar {
     private void init(){
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(35.0f);
+        textPaint.setTextSize(45.0f);
 
         mMinValueLabel = "";
         mMaxValueLabel = "";

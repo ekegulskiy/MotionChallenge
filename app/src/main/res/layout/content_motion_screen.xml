@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/screenBackground"
     tools:context="com.example.ek.motionchallenge.ui.MotionScreen"
     tools:showIn="@layout/activity_motion_screen">
 
@@ -17,6 +18,7 @@
         android:layout_marginTop="54dp"
         android:gravity="center_vertical|center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="@dimen/desc_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

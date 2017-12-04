@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.ek.motionchallenge.ui.HomeScreen"
+    android:background="@color/screenBackground"
     tools:showIn="@layout/activity_home_screen">
 
     <ImageView
@@ -14,12 +15,15 @@
         android:layout_height="104dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="false"
         android:clickable="true"
-        android:scaleType="fitXY"
+        android:background="@color/motionIconBorder"
+        android:cropToPadding="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeDescText"
         app:srcCompat="@drawable/shake_motion_icon"
         tools:background="@android:color/holo_blue_light"
         tools:clickable="true" />
@@ -30,10 +34,13 @@
         android:layout_height="104dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"
+        android:layout_marginTop="20dp"
+        android:background="@color/motionIconBorder"
+        android:cropToPadding="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeDescText"
         app:srcCompat="@drawable/swing360_motion_icon" />
 
     <ImageView
@@ -42,8 +49,11 @@
         android:layout_height="104dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"
+        android:layout_marginTop="30dp"
+        android:background="@color/motionIconBorder"
+        android:cropToPadding="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shakeMotionIconView"
         app:srcCompat="@drawable/jump_up_motion_icon" />
@@ -54,8 +64,11 @@
         android:layout_height="104dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="40dp"
-        android:scaleType="fitCenter"
+        android:layout_marginTop="30dp"
+        android:background="@color/motionIconBorder"
+        android:cropToPadding="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swing360MotionIconView"
         app:srcCompat="@drawable/speed_tap_motion_icon" />
@@ -63,15 +76,13 @@
     <TextView
         android:id="@+id/motionDescView"
         android:layout_width="288dp"
-        android:layout_height="111dp"
+        android:layout_height="113dp"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:autoText="false"
-        android:text="Select a motion..."
         android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="18sp"
+        android:textSize="@dimen/desc_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jumpUpMotionIconView" />
@@ -82,10 +93,25 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:text="START"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/motionDescView" />
+
+    <TextView
+        android:id="@+id/homeDescText"
+        android:layout_width="287dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/home_screen_home_desc_text"
+        android:textAlignment="center"
+        android:textSize="@dimen/desc_text_size"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
