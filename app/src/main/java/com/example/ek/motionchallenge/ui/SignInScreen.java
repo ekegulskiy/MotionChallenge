@@ -34,7 +34,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -119,6 +121,11 @@ public class SignInScreen extends AppCompatActivity implements
                 firebaseAuthWithGoogle(account);
             } else {
                 Log.e(TAG, "Google Sign In failed.");
+                if(result.getStatus().getStatusCode() == CommonStatusCodes.NETWORK_ERROR)
+                {
+                    Log.e(TAG, "Sign In failed due to network connection.");
+                    Toast.makeText(this, "Network connection failed", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
