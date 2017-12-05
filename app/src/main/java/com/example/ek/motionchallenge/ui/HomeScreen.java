@@ -17,9 +17,13 @@
 package com.example.ek.motionchallenge.ui;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,6 +35,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
 import com.google.android.gms.auth.api.Auth;
@@ -39,7 +46,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HomeScreen extends AppCompatActivity
+public class HomeScreen extends BaseScreen
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final String TAG = "HomeScreen";
     public static final String GUEST = "Guest";
@@ -131,8 +138,6 @@ public class HomeScreen extends AppCompatActivity
         Log.d(TAG, "Motion Challenge is starting...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         // Set default username is anonymous.
         mUsername = GUEST;
@@ -146,8 +151,19 @@ public class HomeScreen extends AppCompatActivity
         } else {
             mUsername = mUser.getDisplayName();
             if (mUser.getPhotoUrl() != null) {
-                // TODO implement user profile picture
-                //  mPhotoUrl = mUser.getPhotoUrl().toString();
+                Log.d(TAG, "Photo URL=" + mUser.getPhotoUrl() );
+
+                SimpleTarget target = new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                        setProfilePhoto(bitmap);
+                    }
+                };
+
+                Glide.with(this)
+                        .load(mUser.getPhotoUrl())
+                        .asBitmap()
+                        .into(target);
             }
         }
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -158,6 +174,7 @@ public class HomeScreen extends AppCompatActivity
         initViews();
         mScoresDB = FirebaseScoresDB.getInstance();
         mScoresDB.setUserLoginInfo(mUser.getUid(),mUser.getDisplayName());
+
     }
 
     @Override

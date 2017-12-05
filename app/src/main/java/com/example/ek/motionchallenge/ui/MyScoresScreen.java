@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import com.example.ek.motionchallenge.R;
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 
-public class MyScoresScreen extends AppCompatActivity {
+public class MyScoresScreen extends BaseScreen {
     private FirebaseScoresDB mScoresDB;
 
 

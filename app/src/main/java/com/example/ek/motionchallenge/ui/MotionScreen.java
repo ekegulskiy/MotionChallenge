@@ -37,7 +37,7 @@ import com.example.ek.motionchallenge.motions.ShakeMotion;
 import com.example.ek.motionchallenge.motions.SpeedTapMotion;
 import com.example.ek.motionchallenge.motions.Swing360Motion;
 
-public class MotionScreen extends AppCompatActivity {
+public class MotionScreen extends BaseScreen {
     private TextView mMotionDescView;
     private Button mStartBtn;
     private ProgressBar mMotionProgressBar;
