@@ -4,67 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/screenBackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.ek.motionchallenge.ui.MyScoresScreen"
     tools:showIn="@layout/activity_my_scores_screen">
 
-    <com.example.ek.motionchallenge.ui.TextProgressBar
-        android:id="@+id/speedTapMotionScore"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="335dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="37dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
+    <ListView
+        android:id="@+id/myScoresList"
+        android:layout_width="368dp"
+        android:layout_height="388dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jumpUpMotionIconScore" />
-
-    <com.example.ek.motionchallenge.ui.TextProgressBar
-        android:id="@+id/jumpUpMotionIconScore"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="335dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="37dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swing360MotionScore" />
-
-    <com.example.ek.motionchallenge.ui.TextProgressBar
-        android:id="@+id/swing360MotionScore"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="335dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="37dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shakeMotionScore" />
-
-    <com.example.ek.motionchallenge.ui.TextProgressBar
-        android:id="@+id/shakeMotionScore"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="335dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="49dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -201,6 +201,9 @@ public class HomeScreen extends BaseScreen
         }else if(id == R.id.menu_my_scores) {
             Intent myScoresScreenIntent = new Intent(this, MyScoresScreen.class);
             startActivity(myScoresScreenIntent);
+        }else if(id == R.id.menu_leaderboard) {
+            Intent leaderboardScreenIntent = new Intent(this, LeaderBoardScreen.class);
+            startActivity(leaderboardScreenIntent);
         }
 
         return super.onOptionsItemSelected(item);

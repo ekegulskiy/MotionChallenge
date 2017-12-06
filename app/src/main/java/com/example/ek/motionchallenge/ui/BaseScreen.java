@@ -11,19 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.ek.motionchallenge.R;
+import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 
 /**
  * Created by ek on 12/5/17.
  */
 
 public class BaseScreen extends AppCompatActivity {
-
-    static Bitmap mProfilePhoto;
+    protected FirebaseScoresDB mScoresDB;
+    public static Bitmap mProfilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mScoresDB = FirebaseScoresDB.getInstance();
     }
 
     @Override

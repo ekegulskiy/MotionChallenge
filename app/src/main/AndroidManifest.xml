@@ -33,6 +33,10 @@
         <activity
             android:name=".ui.MyScoresScreen"
             android:label="@string/title_activity_my_scores_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.LeaderBoardScreen"
+            android:label="@string/title_activity_leader_board_screen"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
