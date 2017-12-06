@@ -124,7 +124,12 @@ public class MotionScreen extends BaseScreen {
                 mStartBtn.setVisibility(View.VISIBLE);
 
                 CharSequence curText = getString(R.string.motion_screen_last_score);
-                curText = curText + Integer.toString(mMotion.getMotionCount());
+                if(mMotionID != R.id.jumpUpMotionIconView) {
+                    curText = curText + Integer.toString(mMotion.getMotionCount());
+                }else {
+                    curText = curText + Float.toString(mMotion.getMotionScore());
+                    curText = curText + " inches";
+                }
                 mLastScoreView.setText(curText);
                 mFeedbackView.setText(R.string.motion_screen_feedback);
 

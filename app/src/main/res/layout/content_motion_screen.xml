@@ -38,12 +38,10 @@
 
     <TextView
         android:id="@+id/MotoinScreen_lastScoreView"
-        android:layout_width="167dp"
+        android:layout_width="295dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="96dp"
-        android:layout_marginRight="96dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginLeft="97dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="49dp"
         android:gravity="center_vertical|center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"

@@ -13,6 +13,7 @@ public abstract class MotionBase {
 
     private int mMotionDuration;
     private int mMotionCount;
+    private float mMotionScore;
 
     protected void setMotionDuration(int motionDurationSec){
         mMotionDuration = motionDurationSec;
@@ -46,9 +47,16 @@ public abstract class MotionBase {
     public int getMotionCount(){
         return mMotionCount;
     }
+    public float getMotionScore(){
+        return mMotionScore;
+    }
 
     public void setMotionScore(int score){
         mMotionCount = score;
+    }
+
+    public void setMotionScore(float score){
+        mMotionScore = score;
     }
 
     public void start(){

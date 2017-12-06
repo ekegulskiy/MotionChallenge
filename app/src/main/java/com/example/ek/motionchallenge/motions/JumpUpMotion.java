@@ -22,6 +22,7 @@ public class JumpUpMotion extends MotionBase
     private final float MOTION_MIN_ACCELERATION = 1.0f;
     private final int MOTION_DURATION_SEC = 5;
     private final float GRAVITY_ACCELERATION = 9.8f;
+    private final float INCHES_IN_METER = 39.37f;
 
     private long mStartTime;
     private long mEndTime;
@@ -36,10 +37,8 @@ public class JumpUpMotion extends MotionBase
         super(context);
         setMotionDuration(MOTION_DURATION_SEC);
         initSensors();
-        mAxisDirectionChanged = 0;
-        mEndAcceleration = 0.0f;
-        mStartAcceleration = 0.0f;
-
+        mStartTime = 0;
+        mEndTime = 0;
         mZMotionAcceleration = new MotionAcceleration();
     }
 
@@ -52,15 +51,12 @@ public class JumpUpMotion extends MotionBase
         mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    public void Pause(){
-        mSensorManager.unregisterListener(this);
-    }
+    public void Pause(){ }
 
     @Override
     public void onMotionStart(){
         mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
 
-        mStartTime = System.currentTimeMillis();
     }
 
     @Override
@@ -80,32 +76,30 @@ public class JumpUpMotion extends MotionBase
 
         if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
-            float curAcceleration_X = event.values[0];
-            float curAcceleration_Y = event.values[1];
             float curAcceleration_Z = event.values[2];
+            mZMotionAcceleration.update(curAcceleration_Z);
 
-            if(Math.abs(curAcceleration_Z - GRAVITY_ACCELERATION) > MOTION_MIN_ACCELERATION)
-            {
-                mZMotionAcceleration.update(curAcceleration_Z);
-
-                if(mStartAcceleration == 0.0f)
-                    mStartAcceleration = curAcceleration_Z;
+            if(mStartTime == 0 && mZMotionAcceleration.isDecreasing()){
+               mStartTime = event.timestamp/1000000; // set start time when acceleration starts to decrease
+               Log.d(TAG,"Setting mStartTime = " + mStartTime);
             }
+            else if(mStartTime != 0 && mZMotionAcceleration.isIncreasing()) {
 
-            if(mZMotionAcceleration.isIncreasing())
-            {
-                mEndTime = System.currentTimeMillis();
-                mEndAcceleration = mZMotionAcceleration.getLastStateValue(MotionAcceleration.ValueState.DECREASING);
-
-                float distance = calculateDistance(mStartTime, mEndTime, mStartAcceleration, mEndAcceleration);
+                float distance = calculateDistance(mStartTime, mEndTime);
 
                 setMotionScore((int)distance);
+                setMotionScore(distance);
                 mZMotionAcceleration.reset();
-                mAxisDirectionChanged = 0;
+
+                mEndTime = 0;
+                mStartTime = 0;
+                mSensorManager.unregisterListener(this); // we are done, unregister listener
             }
 
-            //Log.d(TAG, " TYPE_ROTATION_VECTOR ACCELERATION x=" + curAcceleration_X + ",y=" + curAcceleration_Y + ",z=" + curAcceleration_Z);
+            mEndTime = event.timestamp/1000000; // keep track of latest timestamp
+            Log.d(TAG,"Updating mEndTime = " + mEndTime);
 
+            //Log.d(TAG, " TYPE_ROTATION_VECTOR ACCELERATION x=" + curAcceleration_X + ",y=" + curAcceleration_Y + ",z=" + curAcceleration_Z);
         }
     }
 
@@ -114,17 +108,37 @@ public class JumpUpMotion extends MotionBase
 
     }
 
-    public float calculateDistance(long startTime, long endTime, float startAcceleration, float endAcceleration){
+    public float calculateDistance(long startTime, long endTime){
 
+        Log.d(TAG, "calculateDistance()");
+        Log.d(TAG, "    startTime         = " + startTime);
+        Log.d(TAG, "    endTime           = " + endTime);
+
+        // Follow the formula from https://sciencing.com/calculate-height-velocity-8115675.html
+
+        // Final Velocity = Initial Velocity + (Acceleration Due To Gravity * Time)
+        // VF = V0 + a*t
+        // 1. Calculate initial velocity V0
+        float V0, VF = 0.0f;
         long timeDur = endTime - startTime;
+        float t = (float)timeDur/1000.0f;
+        float a = -GRAVITY_ACCELERATION;
+        V0 = VF - (a*t);
 
-        float aveAcceleration = (endAcceleration + startAcceleration)/2.0f;
+        // Height = (Initial velocity * Time) + (Acceleration Due to Gravity * Time Squared Over 2)
+        // h = (v0 * t) + (a * (t*t)/2)
+        // 2. Calculate distance
+        float h = (V0*t) + (a*t*t/2);
 
-        float timeDurSec = (float)timeDur/1000.0f;
+        Log.d(TAG, "    V0=" + V0);
+        Log.d(TAG, "    t=" + t);
+        Log.d(TAG, "    a=" + a);
+        Log.d(TAG, "    h=" + h);
 
-        float aveVelocity =  timeDurSec*aveAcceleration;
+        // Convert meters to inches
+        // 1 m = 39.37 inches
 
-        return aveVelocity*timeDurSec;
+        return (h*INCHES_IN_METER);
     }
 
 }

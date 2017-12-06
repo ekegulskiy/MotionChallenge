@@ -1,6 +1,6 @@
 package com.example.ek.motionchallenge.motions;
 
-import android.renderscript.Sampler;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -13,6 +13,8 @@ public class MotionAcceleration {
     private int mDirectionChanged;
     private Direction mDirection;
     private ValueState m_ValueState;
+    private final String TAG="MotionAcceleration";
+    private final float MIN_VALUE_THREASHOLD = 0.1f;
 
     public final static int X_AXIS_MASK = 0x1;
     public final static int Y_AXIS_MASK = 0x10;
@@ -41,6 +43,19 @@ public class MotionAcceleration {
         mLastStateValue.put(ValueState.DECREASING,0.0f);
     }
     public void update(float acceleration) {
+
+        if( Math.abs(mAcceleration - acceleration) < MIN_VALUE_THREASHOLD)
+        {
+            Log.d(TAG, "not significant change from previous value of " + mAcceleration +", ignoring:" + acceleration);
+
+            m_ValueState = ValueState.STATIC;
+            mLastStateValue.put(m_ValueState,acceleration);
+            mAcceleration = acceleration;
+            return;
+        }
+
+        Log.d(TAG, "update: " + acceleration);
+
         if(mAcceleration == 0.0f) {
             // initial init
             if(acceleration > 0.0f)
@@ -78,12 +93,14 @@ public class MotionAcceleration {
             m_ValueState = ValueState.STATIC;
 
         mLastStateValue.put(m_ValueState,acceleration);
-
         mAcceleration = acceleration;
     }
 
     public boolean isIncreasing(){
         return m_ValueState == ValueState.INCREASING;
+    }
+    public boolean isDecreasing(){
+        return m_ValueState == ValueState.DECREASING;
     }
 
     public float getLastStateValue(ValueState valueState){
