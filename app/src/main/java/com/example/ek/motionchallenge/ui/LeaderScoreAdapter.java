@@ -22,6 +22,7 @@ public class LeaderScoreAdapter extends BaseAdapter {
     private Context mContext;
     private LeaderScore[] mScores;
     protected FirebaseScoresDB mScoresDB;
+    private final int NUMBER_OF_LEADERS = 5;
 
     public LeaderScoreAdapter(Context context) {
         mContext = context;
@@ -30,23 +31,27 @@ public class LeaderScoreAdapter extends BaseAdapter {
 
         String motionName = "shake";
 
-        LeaderScore[] scores = new LeaderScore[4];
+        LeaderScore[] scores = new LeaderScore[NUMBER_OF_LEADERS];
         scores[0] = new LeaderScore();
-        scores[0].mUserName = "Eduard Kegulskiy";
-        scores[0].mScores.put(motionName, mScoresDB.getMotionBestScore((motionName)));
-        scores[0].mUserIcon = BaseScreen.mProfilePhoto;
+        scores[0].mUserName = "Test User 1";
+        scores[0].mScores.put(motionName, 100);
 
         scores[1] = new LeaderScore();
-        scores[1].mUserName = "Eduard Kegulskiy";
-        scores[1].mScores.put(motionName, mScoresDB.getMotionBestScore((motionName)));
+        scores[1].mUserName = "Test User 1";
+        scores[1].mScores.put(motionName, 90);
 
         scores[2] = new LeaderScore();
         scores[2].mUserName = "Eduard Kegulskiy";
         scores[2].mScores.put(motionName, mScoresDB.getMotionBestScore((motionName)));
+        scores[2].mUserIcon = BaseScreen.mProfilePhoto;
 
         scores[3] = new LeaderScore();
-        scores[3].mUserName = "Eduard Kegulskiy";
-        scores[3].mScores.put(motionName, mScoresDB.getMotionBestScore((motionName)));
+        scores[3].mUserName = "Test User 3";
+        scores[3].mScores.put(motionName, 10);
+
+        scores[4] = new LeaderScore();
+        scores[4].mUserName = "Test User 4";
+        scores[4].mScores.put(motionName, 2);
 
         mScores = scores;
     }
