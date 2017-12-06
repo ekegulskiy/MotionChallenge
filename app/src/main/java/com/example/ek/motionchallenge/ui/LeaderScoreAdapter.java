@@ -37,7 +37,7 @@ public class LeaderScoreAdapter extends BaseAdapter {
         scores[0].mScores.put(motionName, 100);
 
         scores[1] = new LeaderScore();
-        scores[1].mUserName = "Test User 1";
+        scores[1].mUserName = "Test User 2";
         scores[1].mScores.put(motionName, 90);
 
         scores[2] = new LeaderScore();
