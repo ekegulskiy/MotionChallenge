@@ -42,6 +42,12 @@ public class MotionAcceleration {
         mLastStateValue.put(ValueState.INCREASING,0.0f);
         mLastStateValue.put(ValueState.DECREASING,0.0f);
     }
+
+    /**
+     * Updates acceleration value and keeps track of the state (increasing or decreasing) and
+     * the sign change (positive->negative and vice versa)
+     * @param acceleration
+     */
     public void update(float acceleration) {
 
         if( Math.abs(mAcceleration - acceleration) < MIN_VALUE_THREASHOLD)
@@ -96,6 +102,10 @@ public class MotionAcceleration {
         mAcceleration = acceleration;
     }
 
+    /**
+     * checks if the acceleration is increasing
+     * @return true if increasing, false otherwise
+     */
     public boolean isIncreasing(){
         return m_ValueState == ValueState.INCREASING;
     }
@@ -103,14 +113,19 @@ public class MotionAcceleration {
         return m_ValueState == ValueState.DECREASING;
     }
 
-    public float getLastStateValue(ValueState valueState){
-        return mLastStateValue.get(valueState);
-    }
-
+    /**
+     * checks how many times the direction of acceleration has changed
+     * @return number of times
+     */
     public int numOfDirChanged(){
         return mDirectionChanged;
     }
 
+    /**
+     * checks how many axis has changed direction at least one time
+     * @param dirChangeMask
+     * @return number of axis
+     */
     static public int numOfAxisDirectionChange(int dirChangeMask){
         int count = 0;
         if( (dirChangeMask & X_AXIS_MASK) == X_AXIS_MASK)

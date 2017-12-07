@@ -6,6 +6,9 @@ import android.widget.ListView;
 
 import com.example.ek.motionchallenge.R;
 
+/**
+ * Leaderboard screen activity, shows scores for each motion
+ */
 public class LeaderBoardScreen extends BaseScreen {
     private ListView mLeadersList;
 
@@ -21,5 +24,4 @@ public class LeaderBoardScreen extends BaseScreen {
         mLeadersList = (ListView)findViewById(R.id.leadersList);
         mLeadersList.setAdapter(adapter);
     }
-
 }

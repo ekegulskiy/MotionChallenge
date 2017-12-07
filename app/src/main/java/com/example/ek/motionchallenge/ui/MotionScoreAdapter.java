@@ -13,33 +13,45 @@ import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 
 /**
  * Created by ek on 12/6/17.
+ * Motion scores data adapter used by the MyScores Screen
  */
-
 public class MotionScoreAdapter extends BaseAdapter {
     private Context mContext;
     private final int MOTION_COUNT = 4;
     protected FirebaseScoresDB mScoresDB;
 
+    /**
+     * Constructor
+     * @param context context of the activity instating this class
+     */
     public MotionScoreAdapter(Context context) {
         mContext = context;
         mScoresDB = FirebaseScoresDB.getInstance();
     }
 
+    /**
+     * number of rows for the data view
+     * @return
+     */
     public int getCount() {
-        // TODO Auto-generated method stub
         return MOTION_COUNT + 1 /* 1 for the header */;
     }
 
     public Object getItem(int arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
+    /**
+     * gets the view for each data row
+     * @param position data row index
+     * @param convertView view
+     * @param parent parent
+     * @return new row created for this data
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,24 +63,11 @@ public class MotionScoreAdapter extends BaseAdapter {
             setupHeaderRow(row);
         else
             setupMotionRow(position, row);
-/*
-        String temp = new String("123");
 
-        title.setText(mScores[position].mUserName);
-
-        if(mScores[position].mUserIcon == null) {
-            i1.setImageResource(R.drawable.ic_default_user);
-        }else
-            i1.setImageBitmap(mScores[position].mUserIcon);
-
-        score.setText(mScores[position].mScores.get("shake").toString());
- */
         return (row);
     }
 
     protected void setupHeaderRow(View row){
-        // ImageView i1 = (ImageView) row.findViewById(R.id.motionIcon);
-
         TextView motionName = (TextView) row.findViewById(R.id.motionName);
         motionName.setText("Motion");
         motionName.setTypeface(null, Typeface.BOLD);

@@ -1,29 +1,8 @@
-/**
- * Copyright Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-// uses sound from   http://www.downloadfreesound.com/8-bit-sound-effects/
-
-
 package com.example.ek.motionchallenge.ui;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -32,11 +11,14 @@ import android.widget.TextView;
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 import com.example.ek.motionchallenge.R;
 import com.example.ek.motionchallenge.motions.JumpUpMotion;
-import com.example.ek.motionchallenge.motions.MotionBase;
+import com.example.ek.motionchallenge.model.MotionBase;
 import com.example.ek.motionchallenge.motions.ShakeMotion;
 import com.example.ek.motionchallenge.motions.SpeedTapMotion;
 import com.example.ek.motionchallenge.motions.Swing360Motion;
 
+/**
+ * MotionScreen class used to show the motion measurement screen, where users performs the motion and gets his score
+ */
 public class MotionScreen extends BaseScreen {
     private TextView mMotionDescView;
     private Button mStartBtn;
@@ -64,7 +46,6 @@ public class MotionScreen extends BaseScreen {
         mLastScoreView = findViewById(R.id.MotoinScreen_lastScoreView);
         mFeedbackView = findViewById(R.id.MotionScreen_feedbackView);
         mFeedbackView.setText("");
-
 
         mScoresDB = FirebaseScoresDB.getInstance();
 
@@ -144,5 +125,4 @@ public class MotionScreen extends BaseScreen {
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep1);
         mMotionProgressBar.getIndeterminateDrawable().setColorFilter(0xFF33b5E5, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
-
 }

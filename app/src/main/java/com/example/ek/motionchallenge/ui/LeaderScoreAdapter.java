@@ -13,11 +13,12 @@ import com.example.ek.motionchallenge.R;
 import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 
 /**
- * Created by ek on 12/5/17.
+ * Created by Eduard Kegulskiy on 12/5/17.
  * Based on https://stackoverflow.com/questions/32573800/android-how-to-add-icon-on-each-listview-list-item-and-change-the-text-color-bac
  * Author: Arsal Imam
+ *
+ * Data adapter used by LeaderBoardScreen
  */
-
 public class LeaderScoreAdapter extends BaseAdapter {
     private Context mContext;
     private LeaderScore[] mScores;
@@ -29,6 +30,8 @@ public class LeaderScoreAdapter extends BaseAdapter {
 
         mScoresDB = FirebaseScoresDB.getInstance();
 
+        // TODO: this is work-in-progress, needs to get real data from FireBaseDB object
+        // TODO: need to implmement this for each motion. For now hardcodeds "shake" motion only
         String motionName = "shake";
 
         LeaderScore[] scores = new LeaderScore[NUMBER_OF_LEADERS];
@@ -43,7 +46,7 @@ public class LeaderScoreAdapter extends BaseAdapter {
         scores[2] = new LeaderScore();
         scores[2].mUserName = "Eduard Kegulskiy";
         scores[2].mScores.put(motionName, mScoresDB.getMotionBestScore((motionName)));
-        scores[2].mUserIcon = BaseScreen.mProfilePhoto;
+        scores[2].mUserIcon = BaseScreen.sProfilePhoto;
 
         scores[3] = new LeaderScore();
         scores[3].mUserName = "Test User 3";
@@ -56,21 +59,29 @@ public class LeaderScoreAdapter extends BaseAdapter {
         mScores = scores;
     }
 
+    /**
+     * gets number of rows in the data set
+     * @return
+     */
     public int getCount() {
-        // TODO Auto-generated method stub
         return mScores.length;
     }
 
     public Object getItem(int arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
+    /**
+     * gets the view for each data row
+     * @param position data row index
+     * @param convertView view
+     * @param parent parent
+     * @return new row created for this data
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,8 +94,6 @@ public class LeaderScoreAdapter extends BaseAdapter {
         i1 = (ImageView) row.findViewById(R.id.imgIcon);
         title = (TextView) row.findViewById(R.id.txtTitle);
         score = (TextView) row.findViewById(R.id.txtScore);
-
-        String temp = new String("123");
 
         title.setText(mScores[position].mUserName);
 

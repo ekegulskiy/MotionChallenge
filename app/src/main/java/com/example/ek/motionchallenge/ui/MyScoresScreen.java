@@ -6,6 +6,9 @@ import android.widget.ListView;
 
 import com.example.ek.motionchallenge.R;
 
+/**
+ * My Scores Screen activity, shows user scores for each motion and also best overall scores.
+ */
 public class MyScoresScreen extends BaseScreen {
     private ListView mMyScoresList;
 
@@ -20,5 +23,4 @@ public class MyScoresScreen extends BaseScreen {
         mMyScoresList = (ListView)findViewById(R.id.myScoresList);
         mMyScoresList.setAdapter(adapter);
     }
-
 }

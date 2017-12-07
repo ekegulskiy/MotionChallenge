@@ -7,12 +7,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-import java.sql.Time;
+import com.example.ek.motionchallenge.model.MotionBase;
 
 /**
  * Created by ek on 12/3/17.
+ * Implements measuring of JumpUp motion
  */
-
 public class JumpUpMotion extends MotionBase
         implements SensorEventListener {
     private SensorManager mSensorManager;
@@ -26,10 +26,6 @@ public class JumpUpMotion extends MotionBase
 
     private long mStartTime;
     private long mEndTime;
-    private float mStartAcceleration;
-    private float mEndAcceleration;
-
-    private int mAxisDirectionChanged;
 
     private MotionAcceleration mZMotionAcceleration;
 
@@ -108,7 +104,7 @@ public class JumpUpMotion extends MotionBase
 
     }
 
-    public float calculateDistance(long startTime, long endTime){
+    protected float calculateDistance(long startTime, long endTime){
 
         Log.d(TAG, "calculateDistance()");
         Log.d(TAG, "    startTime         = " + startTime);
@@ -140,5 +136,4 @@ public class JumpUpMotion extends MotionBase
 
         return (h*INCHES_IN_METER);
     }
-
 }

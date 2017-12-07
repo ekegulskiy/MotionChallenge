@@ -7,6 +7,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
+import com.example.ek.motionchallenge.model.MotionBase;
+
 /**
  * Created by ek on 11/15/17.
  */
@@ -91,14 +93,6 @@ public class ShakeMotion extends MotionBase
             mY = y;
             mZ = z;
         }
-        else if (mySensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-
-            Log.d(TAG, " LINEAR ACCELERATION x=" + x + ",y=" + y + ",z=" +z);
-        }
-
     }
 
     @Override

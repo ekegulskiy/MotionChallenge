@@ -4,8 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,11 +13,12 @@ import com.example.ek.motionchallenge.backend.FirebaseScoresDB;
 
 /**
  * Created by ek on 12/5/17.
+ * Base class for all screens of the application
  */
 
 public class BaseScreen extends AppCompatActivity {
     protected FirebaseScoresDB mScoresDB;
-    public static Bitmap mProfilePhoto;
+    public static Bitmap sProfilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,9 @@ public class BaseScreen extends AppCompatActivity {
         mScoresDB = FirebaseScoresDB.getInstance();
     }
 
+    /**
+     * When activity is started, displays user profile photo (if exists) in the action bar
+     */
     @Override
     protected void onStart (){
         super.onStart();
@@ -37,17 +39,24 @@ public class BaseScreen extends AppCompatActivity {
         displayProfilePhoto();
     }
 
+    /**
+     * stores user profile photo and displays it in the action bar
+     * @param profilePhoto user profile photo
+     */
     public void setProfilePhoto(Bitmap profilePhoto){
-        mProfilePhoto = profilePhoto;
+        sProfilePhoto = profilePhoto;
         displayProfilePhoto();
     }
 
+    /**
+     * displays user profile photo in the action bar
+     */
     protected void displayProfilePhoto(){
-        if(mProfilePhoto != null){
+        if(sProfilePhoto != null){
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayShowHomeEnabled(true);
             Resources res = getResources();
-            BitmapDrawable icon = new BitmapDrawable(res,mProfilePhoto);
+            BitmapDrawable icon = new BitmapDrawable(res,sProfilePhoto);
             actionBar.setIcon(icon);
         }
     }

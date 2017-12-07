@@ -5,9 +5,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
-import static com.example.ek.motionchallenge.motions.MotionAcceleration.numOfAxisDirectionChange;
+import com.example.ek.motionchallenge.model.MotionBase;
 
 /**
  * Created by ek on 12/2/17.

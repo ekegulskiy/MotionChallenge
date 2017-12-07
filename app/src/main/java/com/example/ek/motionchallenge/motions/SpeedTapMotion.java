@@ -2,6 +2,8 @@ package com.example.ek.motionchallenge.motions;
 
 import android.content.Context;
 
+import com.example.ek.motionchallenge.model.MotionBase;
+
 /**
  * Created by ek on 12/3/17.
  */

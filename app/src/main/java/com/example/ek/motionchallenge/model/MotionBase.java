@@ -1,10 +1,11 @@
-package com.example.ek.motionchallenge.motions;
+package com.example.ek.motionchallenge.model;
 
 import android.content.Context;
 import android.os.Handler;
 
 /**
  * Created by ek on 11/15/17.
+ * abstract class that represents a motion data adapter used by the MotionScreen View
  */
 
 public abstract class MotionBase {

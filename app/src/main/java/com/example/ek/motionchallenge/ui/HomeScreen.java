@@ -1,31 +1,10 @@
-/**
- * Copyright Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.ek.motionchallenge.ui;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -46,12 +25,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * HomeScreen is the Main Activity of the application.
+ * Allows user to select a motion
+ */
 public class HomeScreen extends BaseScreen
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final String TAG = "HomeScreen";
-    public static final String GUEST = "Guest";
     private int mSelectedMotionIconID;
-    private String mUsername;
     private FirebaseScoresDB mScoresDB;
 
     private GoogleApiClient mGoogleApiClient;
@@ -60,7 +41,7 @@ public class HomeScreen extends BaseScreen
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
-    // Views
+    // Motion Views
     private ImageView mShakeMotionIconView;
     private ImageView mSwing360MotionIconView;
     private ImageView mJumpUpMotionIconView;
@@ -68,7 +49,11 @@ public class HomeScreen extends BaseScreen
     private TextView mMotionDescView;
     private Button mStartBtn;
 
-    @Override // Implement the OnClickListener callback
+    /**
+     * onClick() used to activate the selected motion
+     * @param v motion view that was clicked by the user
+     */
+    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.shakeMotionIconView:
@@ -97,9 +82,11 @@ public class HomeScreen extends BaseScreen
         }
     }
 
-    /** Activates the icon for the selected motion and display the text in the Motion
-     * description view
-     * */
+    /**
+     * Activates the icon for the selected motion and display the text in the Motion description view
+     * @param motionIcon
+     * @param motionDescStrID
+     */
     private void activateMotionIcon(View motionIcon, int motionDescStrID){
         mShakeMotionIconView.clearColorFilter();
         mSwing360MotionIconView.clearColorFilter();
@@ -139,8 +126,6 @@ public class HomeScreen extends BaseScreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Set default username is anonymous.
-        mUsername = GUEST;
         //Initialize Auth
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -149,7 +134,6 @@ public class HomeScreen extends BaseScreen
             finish();
             return;
         } else {
-            mUsername = mUser.getDisplayName();
             if (mUser.getPhotoUrl() != null) {
                 Log.d(TAG, "Photo URL=" + mUser.getPhotoUrl() );
 
@@ -174,9 +158,13 @@ public class HomeScreen extends BaseScreen
         initViews();
         mScoresDB = FirebaseScoresDB.getInstance();
         mScoresDB.setUserLoginInfo(mUser.getUid(),mUser.getDisplayName());
-
     }
 
+    /**
+     * callback to create options menu
+     * @param menu options menu for this screen
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -184,6 +172,11 @@ public class HomeScreen extends BaseScreen
         return true;
     }
 
+    /**
+     * options menu actions
+     * @param item selection menu item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -195,7 +188,6 @@ public class HomeScreen extends BaseScreen
         if (id == R.id.menu_sign_out) {
             mAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-            mUsername = GUEST;
             startActivity(new Intent(this, SignInScreen.class));
             return true;
         }else if(id == R.id.menu_my_scores) {
@@ -209,6 +201,10 @@ public class HomeScreen extends BaseScreen
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * callback when GoogleApiClient call fails. Displays a toast to notify the user that the error has occurred
+     * @param connectionResult connection error description
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
